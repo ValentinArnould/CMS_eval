@@ -1,5 +1,6 @@
 <?php
-include_once('Model.php');
+include_once('helpers/ConfigHelper.php');
+
 
 /**
  *
@@ -33,6 +34,7 @@ class ViewController
         $page = new PageModel();
         $content = (array)$page->getOne('title', $_POST["page"]);
         $scontent = $content['content'];
+        $contentArray["title"] = $_POST["page"];
         $contentArray["content"] = $scontent;
         echo TemplateHelper::createTemplate('pageEditing', $contentArray);
     }
@@ -40,14 +42,11 @@ class ViewController
     static public function updatePage() {
         $dbConnec = new PDO('mysql:host=localhost;dbname=' . 
         ConfigHelper::config_params('db_name'), ConfigHelper::config_params('db_user'), ConfigHelper::config_params('db_password'));
-        $request = $dbConnec->prepare('UPDATE pages SET content= ' . $_POST['textPage'] . 'WHERE ');
+        $request = $dbConnec->prepare('UPDATE pages SET content= "' . $_POST['textPage'] . '" WHERE title= "' . $_POST['namePage'] . '"');
         $request->execute();
 
         $page = new PageModel();
-        $content = (array)$page->getOne('title', $_POST["page"]);
-        $scontent = $content['content'];
-        $contentArray["content"] = $scontent;
-        echo TemplateHelper::createTemplate('pageEditing', $contentArray);
+        echo TemplateHelper::createTemplate('home', $page->getOne('title', 'home'));
     }
 
 }
