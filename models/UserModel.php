@@ -36,6 +36,19 @@ class UserModel extends Model
                 }
             }
         }
-        header('Location: /auth/login');
+        header('Location: /' . ConfigHelper::config_params('login'));
+    }
+
+    public function is_loged($username) 
+    {
+        $request = $this->dbConnec->prepare('SELECT is_connected FROM ' . $this->tableName . ' WHERE username = :username LIMIT 1');
+        $request->execute( array(':username' => $username));
+        $results = $request->fetchAll(PDO::FETCH_OBJ);
+        if($results[0]->is_connected == '1') {
+            return true;
+        } else {
+            return false;
+        }
+
     }
 }

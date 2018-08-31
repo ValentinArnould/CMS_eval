@@ -13,7 +13,8 @@ class Model
 
     function __construct()
     {
-        $this->dbConnec = new PDO('mysql:host=localhost;dbname=' . ConfigHelper::config_params('db_name'), self::USER, self::PASS);
+        $this->dbConnec = new PDO('mysql:host=localhost;dbname=' . 
+        ConfigHelper::config_params('db_name'), ConfigHelper::config_params('db_user'), ConfigHelper::config_params('db_password'));
     }
 
     public function getAll()

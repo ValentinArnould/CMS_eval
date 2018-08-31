@@ -24,7 +24,7 @@ class ConfigHelper
     return $result;
   }
 
-  private function iterateParams($param) {
+  static private function iterateParams($param) {
     $result = "";
     switch ($param) {
       case 'db_name':
@@ -42,7 +42,7 @@ class ConfigHelper
       case 'logout':
         $result = ConfigHelper::LOGOUT_URL;
         break;
-      case 'main_view':
+      case 'home':
         $result = ConfigHelper::MAIN_VIEW;
         break;
       
