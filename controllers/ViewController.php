@@ -30,7 +30,7 @@ class ViewController
     static public function editPage() {
         $page = new PageModel();
         $content = (array)$page->getOne('title', $_POST["page"]);
-        $scontent = (string) $content;
+        $scontent = $content['content'];
         $contentArray["content"] = $scontent;
         echo TemplateHelper::createTemplate('pageEditing', $contentArray);
     }
